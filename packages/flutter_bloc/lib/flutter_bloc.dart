@@ -13,3 +13,5 @@ export './src/multi_bloc_provider.dart';
 export './src/multi_repository_provider.dart';
 export './src/repository_provider.dart'
     hide RepositoryProviderSingleChildWidget;
+
+import 'package:bloc/bloc.dart';
