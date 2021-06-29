@@ -23,9 +23,7 @@ class BlocObserver {
   /// and [event].
   @protected
   @mustCallSuper
-  void onEvent(Bloc bloc, Object? event) {
-    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
-  }
+  void onEvent(Bloc bloc, Object? event) {}
 
   /// Called whenever a [Change] occurs in any [bloc]
   /// A [change] occurs when a new state is emitted.
@@ -43,18 +41,14 @@ class BlocObserver {
   /// [onTransition] is called before a [bloc]'s state has been updated.
   @protected
   @mustCallSuper
-  void onTransition(Bloc bloc, Transition transition) {
-    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
-  }
+  void onTransition(Bloc bloc, Transition transition) {}
 
   /// Called whenever an [error] is thrown in any [Bloc] or [Cubit].
   /// The [stackTrace] argument may be [StackTrace.empty] if an error
   /// was received without a stack trace.
   @protected
   @mustCallSuper
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
-  }
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {}
 
   /// Called whenever a [Bloc] is closed.
   /// [onClose] is called just before the [Bloc] is closed
