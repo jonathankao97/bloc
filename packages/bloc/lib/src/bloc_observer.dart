@@ -9,15 +9,14 @@ class BlocObserver {
   /// [onCreate] can be used to observe exactly when the cubit
   /// instance is created.
   ///
-  ///
-  List<BlocBase> blocList = [];
+  Map<String, BlocBase> blocMap = {};
 
   @protected
   @mustCallSuper
   void onCreate(BlocBase bloc) {
-    blocList.add(bloc);
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    var id = identityHashCode(bloc).toString();
+    blocMap[id] = bloc;
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 
   /// Called whenever an [event] is `added` to any [bloc] with the given [bloc]
@@ -25,8 +24,7 @@ class BlocObserver {
   @protected
   @mustCallSuper
   void onEvent(Bloc bloc, Object? event) {
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 
   /// Called whenever a [Change] occurs in any [bloc]
@@ -35,8 +33,7 @@ class BlocObserver {
   @protected
   @mustCallSuper
   void onChange(BlocBase bloc, Change change) {
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 
   /// Called whenever a transition occurs in any [bloc] with the given [bloc]
@@ -47,8 +44,7 @@ class BlocObserver {
   @protected
   @mustCallSuper
   void onTransition(Bloc bloc, Transition transition) {
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 
   /// Called whenever an [error] is thrown in any [Bloc] or [Cubit].
@@ -57,8 +53,7 @@ class BlocObserver {
   @protected
   @mustCallSuper
   void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 
   /// Called whenever a [Bloc] is closed.
@@ -68,7 +63,8 @@ class BlocObserver {
   @protected
   @mustCallSuper
   void onClose(BlocBase bloc) {
-    print('post event sent');
-    postEvent('bloc:bloc_list_changed', <Object?, Object?>{});
+    var id = identityHashCode(bloc).toString();
+    blocMap.remove(id);
+    postEvent('bloc:bloc_map_changed', <Object?, Object?>{});
   }
 }
